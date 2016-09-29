@@ -7,6 +7,7 @@ package es.albarregas.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Enumeration;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -44,16 +45,21 @@ public class CicloVida extends HttpServlet {
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("service()");
+          PrintWriter out = response.getWriter();
+       Enumeration<String> parametros=request.getParameterNames();
+       
+       while(parametros.hasMoreElements()){
+       String param = parametros.nextElement();
+       out.write(param+"="+ request.getParameter(param));
+    }
         
        
     }
 
     @Override
     public void init(ServletConfig config) throws ServletException {
-        System.out.println("init()");
-    }
-
+     
+}
     @Override
     public void destroy() {
         System.out.println("destroy()");
